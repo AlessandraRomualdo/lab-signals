@@ -1,0 +1,17 @@
+<div>
+  <h2>Elementos Químicos</h2>
+  <ul>
+    <li
+      *ngFor="let elemento of elementos"
+      (click)="selecionarElemento(elemento)"
+    >
+      {{ elemento.nome }} ({{ elemento.simbolo }})
+    </li>
+  </ul>
+
+  <p *ngIf="elementoSelecionado()">
+    Sinal Gravável - Elemento Selecionado: {{ elementoSelecionado()?.nome }}
+  </p>
+
+  <p>Sinal Computado - Informações Detalhadas: {{ elementoInfo() }}</p>
+</div>
