@@ -20,6 +20,6 @@ export class EffectsComponent {
   }
 
   ajustarTemperatura(novaTemperatura: number) {
-    this.ajustarTemperatura(novaTemperatura);
+    this.elementoService.ajustarTemperatura(novaTemperatura);
   }
 }
