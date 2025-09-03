@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, effect, signal } from '@angular/core';
 
 interface Elemento {
   nome: string;
@@ -10,8 +10,6 @@ interface Elemento {
 
 @Component({
   selector: 'app-effects',
-  standalone: true,
-  imports: [],
   templateUrl: './effects.component.html',
   styleUrl: './effects.component.css'
 })
@@ -30,4 +28,39 @@ export class EffectsComponent {
     { nome: 'Sódio', simbolo: 'Na', numeroMassa: 23, pontoFusao: 98, pontoEbulicao: 883 },
     { nome: 'Cloro', simbolo: 'Cl', numeroMassa: 35, pontoFusao: -101, pontoEbulicao: -34 }
   ];
+
+  constructor() {
+    // A função `effect` é executada sempre que um dos sinais que ela lê (`elementoSelecionado` ou `temperatura`) muda.
+    // É ideal para executar efeitos colaterais, como atualizar o estado de um sinal com base em outros.
+    effect(() => {
+      const elemento = this.elementoSelecionado();
+      const temp = this.temperatura();
+
+      // Só executa a lógica se um elemento estiver selecionado.
+      if (elemento) {
+        let estadoFisico = ''; 
+        if (temp < elemento.pontoFusao) {
+          estadoFisico = 'Sólido';
+        } else if (temp >= elemento.pontoFusao && temp < elemento.pontoEbulicao) {
+          estadoFisico = 'Líquido';
+        } else {
+          estadoFisico = 'Gasoso';
+        }
+        // Atualiza o sinal `estadoFisico`. Essa escrita só é permitida por causa da opção `allowSignalWrites`.
+        this.estadoFisico.set(estadoFisico);
+      }
+    },
+      // Por padrão, não é permitido escrever em sinais dentro de um `effect` para evitar loops infinitos.
+      // `allowSignalWrites: true` autoriza explicitamente a escrita, pois sabemos que é um efeito colateral seguro e intencional.
+      { allowSignalWrites: true }
+    )
+  }
+
+  selecionarElemento(elemento: Elemento) {
+    this.elementoSelecionado.set(elemento);
+  }
+
+  ajustarTemperatura(novaTemperatura: number) {
+    this.temperatura.set(novaTemperatura);
+  }
 }
