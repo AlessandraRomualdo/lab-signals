@@ -7,6 +7,7 @@
     <ul>
       <li><a routerLink="/intro">Lista de elementos</a></li>
       <li><a routerLink="/effecst">Manipulando estados físicos</a></li>
+       <li><a routerLink="/elements">Elementos favoritos</a></li>
     </ul>
   </div>
 
@@ -16,6 +17,11 @@
       alt="Descrição da Imagem"
       class="image-container"
     />
+  </div>
+
+  <div class="element-container">
+    <router-outlet name="list"></router-outlet> 
+    <router-outlet name="details"></router-outlet> 
   </div>
 </nav>
 

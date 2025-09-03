@@ -1,0 +1,6 @@
+<h2>Elementos Favoritos</h2>
+<ul>
+  <li *ngFor="let elemento of elementoService.obterFavoritos()">
+    {{ elemento.nome }} ({{ elemento.simbolo }})
+  </li>
+</ul>

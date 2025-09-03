@@ -1,0 +1,15 @@
+<h2>Lista de Elementos Químicos</h2>
+<ul>
+  <li *ngFor="let elemento of elementoService.elementos">
+    {{ elemento.nome }} ({{ elemento.simbolo }})
+
+    <button (click)="alternarFavorito(elemento)">
+      <span *ngIf="elementoService.obterFavoritos().includes(elemento)">
+        <i class="fa-solid fa-star"></i>
+      </span>
+      <span *ngIf="!elementoService.obterFavoritos().includes(elemento)">
+         <i class="fa-regular fa-star"></i>
+      </span>
+    </button>
+  </li>
+</ul>
