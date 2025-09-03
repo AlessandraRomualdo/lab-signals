@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { ElementoService } from '../elemento.service';
 
 @Component({
   selector: 'app-element-details',
   templateUrl: './element-details.component.html',
-  styleUrl: './element-details.component.css'
+  styleUrl: './element-details.component.css',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ElementDetailsComponent {
 
